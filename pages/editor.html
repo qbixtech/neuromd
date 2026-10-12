@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'none'">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>NeuroMD — редактор Markdown</title>
+  <meta name="description" content="Онлайн-редактор Markdown с живым предпросмотром и экспортом .md файлов.">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/editor.css">
+</head>
+<body data-section="editor">
+  <canvas id="neuro-bg"></canvas>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__mark"><svg class="icon"><use href="#i-spark"></use></svg></span>
+        Neuro<span class="brand__dot">MD</span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a class="nav__link" href="../index.html">Главная</a></li>
+        <li><a class="nav__link" href="editor.html"><svg class="icon"><use href="#i-editor"></use></svg>Редактор</a></li>
+        <li><a class="nav__link" href="learn.html"><svg class="icon"><use href="#i-learn"></use></svg>Обучение</a></li>
+        <li><a class="nav__link" href="skills.html"><svg class="icon"><use href="#i-skills"></use></svg>Skills.md</a></li>
+        <li><a class="nav__link" href="harness.html"><svg class="icon"><use href="#i-harness"></use></svg>Подключение</a></li>
+      </ul>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Меню" aria-expanded="false"><svg class="icon"><use href="#i-menu"></use></svg></button>
+    </div>
+  </nav>
+
+  <main class="container editor-page">
+    <div class="editor-head">
+      <div>
+        <p class="kicker">Рабочая станция</p>
+        <h1>Редактор Markdown</h1>
+        <p>Набирай текст слева — разметка сразу собирается справа. Скачай результат как <code>.md</code> или <code>.html</code>.</p>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn--ghost" data-theme-toggle type="button" title="Сменить тему">
+          <svg class="icon"><use href="#i-theme"></use></svg><span>Тема</span>
+        </button>
+      </div>
+    </div>
+
+    <section class="editor-panel">
+      <div class="editor-toolbar">
+        <div class="btn-group">
+          <button class="tool-btn" data-action="bold" type="button" title="Жирный (Ctrl+B)" aria-label="Жирный текст"><svg class="icon"><use href="#i-bold"></use></svg></button>
+          <button class="tool-btn" data-action="italic" type="button" title="Курсив (Ctrl+I)" aria-label="Курсивный текст"><svg class="icon"><use href="#i-italic"></use></svg></button>
+          <button class="tool-btn" data-action="code" type="button" title="Инлайн-код" aria-label="Инлайн-код"><svg class="icon"><use href="#i-code"></use></svg></button>
+          <button class="tool-btn" data-action="heading" type="button" title="Заголовок" aria-label="Заголовок второго уровня"><svg class="icon"><use href="#i-heading"></use></svg></button>
+        </div>
+        <span class="editor-toolbar__sep"></span>
+        <div class="btn-group">
+          <button class="tool-btn" data-action="list" type="button" title="Список" aria-label="Маркированный список"><svg class="icon"><use href="#i-list"></use></svg></button>
+          <button class="tool-btn" data-action="checklist" type="button" title="Чек-лист" aria-label="Чек-лист"><svg class="icon"><use href="#i-checklist"></use></svg></button>
+          <button class="tool-btn" data-action="quote" type="button" title="Цитата" aria-label="Цитата"><svg class="icon"><use href="#i-quote"></use></svg></button>
+          <button class="tool-btn" data-action="link" type="button" title="Ссылка (Ctrl+K)" aria-label="Вставить ссылку"><svg class="icon"><use href="#i-link"></use></svg></button>
+          <button class="tool-btn" data-action="image" type="button" title="Картинка" aria-label="Вставить изображение"><svg class="icon"><use href="#i-image"></use></svg></button>
+          <button class="tool-btn" data-action="table" type="button" title="Таблица" aria-label="Вставить таблицу"><svg class="icon"><use href="#i-table"></use></svg></button>
+          <button class="tool-btn" data-action="hr" type="button" title="Линия" aria-label="Вставить горизонтальную линию"><svg class="icon"><use href="#i-hr"></use></svg></button>
+        </div>
+        <span class="spacer"></span>
+        <label class="visually-hidden" for="tpl-select">Шаблон документа</label>
+        <select class="select" id="tpl-select" title="Вставить шаблон">
+          <option value="">Шаблоны…</option>
+        </select>
+        <div class="segmented" role="group" aria-label="Режим просмотра">
+          <button data-mode-btn="edit" type="button">Текст</button>
+          <button data-mode-btn="split" type="button" class="is-active">Разделённый</button>
+          <button data-mode-btn="preview" type="button">Просмотр</button>
+        </div>
+      </div>
+
+      <div class="editor-workspace" id="md-workspace" data-mode="split">
+        <div class="pane pane--input">
+          <div class="pane__head"><svg class="icon"><use href="#i-terminal"></use></svg>Ввод .md</div>
+          <textarea class="editor-input" id="md-input" spellcheck="false"
+            placeholder="# Начни писать здесь…&#10;&#10;Используй **жирный**, *курсив*, `код` и списки."></textarea>
+        </div>
+        <div class="pane pane--preview">
+          <div class="pane__head"><svg class="icon"><use href="#i-editor"></use></svg>Предпросмотр</div>
+          <div class="editor-preview" id="md-preview">
+            <div class="preview-empty">
+              <svg class="icon"><use href="#i-spark"></use></svg>
+              <span>Здесь появится результат разметки</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="editor-status">
+        <div class="stats">
+          <div class="stat"><span class="stat__val" id="stat-words">0</span><span class="stat__key">слов</span></div>
+          <div class="stat"><span class="stat__val" id="stat-chars">0</span><span class="stat__key">символов</span></div>
+          <div class="stat"><span class="stat__val" id="stat-lines">0</span><span class="stat__key">строк</span></div>
+        </div>
+        <span class="spacer"></span>
+        <span class="status-msg" id="status-msg" role="status" aria-live="polite"><span>Автосохранение включено</span></span>
+      </div>
+
+      <div class="editor-status">
+        <div class="btn-group">
+          <button class="btn btn--primary" data-cmd="download-md" type="button"><svg class="icon"><use href="#i-download"></use></svg>Скачать .md</button>
+          <button class="btn" data-cmd="download-html" type="button"><svg class="icon"><use href="#i-download"></use></svg>Скачать .html</button>
+          <button class="btn" data-cmd="upload" type="button"><svg class="icon"><use href="#i-upload"></use></svg>Загрузить .md</button>
+          <button class="btn" data-cmd="copy" type="button"><svg class="icon"><use href="#i-copy"></use></svg>Копировать</button>
+          <button class="btn btn--danger" data-cmd="clear" type="button"><svg class="icon"><use href="#i-clear"></use></svg>Очистить</button>
+        </div>
+        <input type="file" id="file-input" accept=".md,.markdown,.txt" class="visually-hidden">
+      </div>
+    </section>
+
+    <div class="hotkeys">
+      <span class="hotkey"><kbd>Ctrl</kbd>+<kbd>B</kbd> жирный</span>
+      <span class="hotkey"><kbd>Ctrl</kbd>+<kbd>I</kbd> курсив</span>
+      <span class="hotkey"><kbd>Ctrl</kbd>+<kbd>K</kbd> ссылка</span>
+      <span class="hotkey"><kbd>Tab</kbd> отступ</span>
+    </div>
+
+    <div class="callout" style="margin-top:26px">
+      <svg class="icon"><use href="#i-warn"></use></svg>
+      <p><strong>Черновик сохраняется автоматически</strong> в этом браузере (локально). При закрытии вкладки текст не потеряется. Для постоянного хранения скачай файл <code>.md</code>.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <span>NeuroMD — редактор Markdown</span>
+      <span>Работает офлайн, без внешних зависимостей</span>
+    </div>
+  </footer>
+
+  <script src="../js/icons.js" defer></script>
+  <script src="../js/parser.js" defer></script>
+  <script src="../js/storage.js" defer></script>
+  <script src="../js/templates.js" defer></script>
+  <script src="../js/neuro-bg.js" defer></script>
+  <script src="../js/ui.js" defer></script>
+  <script src="../js/editor.js" defer></script>
+</body>
+</html>

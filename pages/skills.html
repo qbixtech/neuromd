@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'none'">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>NeuroMD — Skills.md: как писать скиллы</title>
+  <meta name="description" content="Что такое SKILL.md, из чего он состоит и как написать собственный скилл для ИИ-ассистента.">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-section="skills">
+  <canvas id="neuro-bg"></canvas>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__mark"><svg class="icon"><use href="#i-spark"></use></svg></span>
+        Neuro<span class="brand__dot">MD</span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a class="nav__link" href="../index.html">Главная</a></li>
+        <li><a class="nav__link" href="editor.html"><svg class="icon"><use href="#i-editor"></use></svg>Редактор</a></li>
+        <li><a class="nav__link" href="learn.html"><svg class="icon"><use href="#i-learn"></use></svg>Обучение</a></li>
+        <li><a class="nav__link" href="skills.html"><svg class="icon"><use href="#i-skills"></use></svg>Skills.md</a></li>
+        <li><a class="nav__link" href="harness.html"><svg class="icon"><use href="#i-harness"></use></svg>Подключение</a></li>
+      </ul>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Меню" aria-expanded="false"><svg class="icon"><use href="#i-menu"></use></svg></button>
+    </div>
+  </nav>
+
+  <main class="container section">
+    <div class="section-head">
+      <p class="kicker">Модуль 02 · скиллы</p>
+      <h1>Что такое <code>SKILL.md</code></h1>
+      <p class="dim">Скилл — это файл с инструкциями, который ИИ-ассистент читает и применяет
+      автоматически. Ты пишешь правила один раз, а агент следует им в каждой подходящей задаче.</p>
+    </div>
+
+    <section class="section--tight section--screen" id="idea">
+      <h2><span class="accent mono">01 /</span> Идея скилла</h2>
+      <p>Обычно ИИ отвечает «в общем». Скилл задаёт конкретный порядок действий, стиль и ограничения
+      для узкой задачи. Это похоже на памятку для нового сотрудника: коротко, по делу, с примерами.</p>
+      <div class="grid grid--3" style="margin-top:22px">
+        <div class="card"><span class="card__ico"><svg class="icon"><use href="#i-check"></use></svg></span><h3>Задача</h3><p>Что именно должен делать агент: проверять код, писать тесты, оформлять отчёт.</p></div>
+        <div class="card"><span class="card__ico"><svg class="icon"><use href="#i-list"></use></svg></span><h3>Порядок</h3><p>Шаги по номерам. Так результат воспроизводим, а не случаен.</p></div>
+        <div class="card"><span class="card__ico"><svg class="icon"><use href="#i-warn"></use></svg></span><h3>Ограничения</h3><p>Правила «всегда» и «никогда»: что нельзя делать ни при каких условиях.</p></div>
+      </div>
+    </section>
+
+    <section class="section--tight" id="anatomy">
+      <h2><span class="accent mono">02 /</span> Анатомия файла</h2>
+      <p>Вверху — заголовочный блок между линиями <code>---</code> (front matter) с полями
+      <code>name</code> и <code>description</code>. Дальше — обычный Markdown с инструкциями.</p>
+
+      <div class="grid grid--2" style="margin-top:20px; align-items:start">
+        <div class="code">
+          <div class="code__bar">
+            <span class="code__dots"><span></span><span></span><span></span></span>
+            <span class="code__lang">SKILL.md</span>
+            <button class="code__copy" data-copy="#skill-anatomy">
+              <svg class="icon"><use href="#i-copy"></use></svg><span class="code__copy-label">Копировать</span>
+            </button>
+          </div>
+          <pre><code id="skill-anatomy">---
+name: code-review
+description: Проверяет код перед слиянием и находит риски.
+---
+
+# Проверка кода
+
+## Когда использовать
+- Перед слиянием ветки.
+- После крупного изменения.
+
+## Инструкции
+1. Прочитай изменения целиком.
+2. Найди ошибки, дубли и риски безопасности.
+3. Предложи правки списком, от важного к мелкому.
+
+## Правила
+- Всегда ссылайся на конкретные строки.
+- Никогда не переписывай код без объяснения.
+</code></pre>
+        </div>
+        <div>
+          <div class="accordion">
+            <div class="accordion__item">
+              <button class="accordion__head" aria-expanded="false"><svg class="icon"><use href="#i-terminal"></use></svg>Front matter<svg class="icon accordion__chev"><use href="#i-external"></use></svg></button>
+              <div class="accordion__body"><div class="accordion__inner">
+                <p>Блок между <code>---</code>. Поле <code>name</code> — короткое имя скилла,
+                <code>description</code> — одна фраза о том, что делает скилл и когда его применять.
+                Ассистент по описанию понимает, когда скилл уместен.</p>
+              </div></div>
+            </div>
+            <div class="accordion__item">
+              <button class="accordion__head" aria-expanded="false"><svg class="icon"><use href="#i-heading"></use></svg>Заголовок и «Когда использовать»<svg class="icon accordion__chev"><use href="#i-external"></use></svg></button>
+              <div class="accordion__body"><div class="accordion__inner">
+                <p>Заголовок задаёт тему. Раздел «Когда использовать» помогает агенту понять
+                контекст: в каких ситуациях доставать этот скилл.</p>
+              </div></div>
+            </div>
+            <div class="accordion__item">
+              <button class="accordion__head" aria-expanded="false"><svg class="icon"><use href="#i-list"></use></svg>Инструкции<svg class="icon accordion__chev"><use href="#i-external"></use></svg></button>
+              <div class="accordion__body"><div class="accordion__inner">
+                <p>Нумерованные шаги. Пиши глаголами: «прочитай», «найди», «предложи». Чем конкретнее
+                шаг, тем стабильнее результат.</p>
+              </div></div>
+            </div>
+            <div class="accordion__item">
+              <button class="accordion__head" aria-expanded="false"><svg class="icon"><use href="#i-warn"></use></svg>Правила<svg class="icon accordion__chev"><use href="#i-external"></use></svg></button>
+              <div class="accordion__body"><div class="accordion__inner">
+                <p>Жёсткие ограничения: «всегда…», «никогда…». Они защищают от типичных ошибок
+                агента — выдумывания данных, лишних изменений, потери контекста.</p>
+              </div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section--tight section--screen" id="howto">
+      <h2><span class="accent mono">03 /</span> Как написать свой скилл</h2>
+      <ol class="steps">
+        <li>
+          <h4>Выбери одну узкую задачу</h4>
+          <p>Скилл должен решать что-то конкретное: «проверить код», «написать тесты»,
+          «оформить конспект». Не пытайся описать всё сразу.</p>
+        </li>
+        <li>
+          <h4>Создай файл и заголовочный блок</h4>
+          <p>Имя файла — <code>SKILL.md</code>. В начале укажи <code>name</code> и
+          <code>description</code> между линиями <code>---</code>.</p>
+        </li>
+        <li>
+          <h4>Опиши шаги по номерам</h4>
+          <p>3–6 шагов достаточно. Каждый шаг начинай с глагола действия и не смешивай два действия в одном.</p>
+        </li>
+        <li>
+          <h4>Добавь пример и правила</h4>
+          <p>Покажи короткий пример «до и после» и перечисли ограничения: что делать всегда и чего не делать никогда.</p>
+        </li>
+        <li>
+          <h4>Проверь и подключи</h4>
+          <p>Попробуй скилл на реальной задаче, поправь формулировки. Затем подключи его — локально
+          или в общий harness (см. <a href="harness.html">раздел Подключение</a>).</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section--tight" id="examples">
+      <h2><span class="accent mono">04 /</span> Готовые примеры</h2>
+      <p class="dim">Нажми «Копировать», вставь в редактор и адаптируй под свою задачу.</p>
+
+      <div class="grid grid--2" style="margin-top:20px; align-items:start">
+        <div class="code">
+          <div class="code__bar">
+            <span class="code__lang">Скилл: конспект урока</span>
+            <button class="code__copy" data-copy="#ex-notes"><svg class="icon"><use href="#i-copy"></use></svg><span class="code__copy-label">Копировать</span></button>
+          </div>
+          <pre><code id="ex-notes">---
+name: lesson-notes
+description: Превращает текст урока в структурированный конспект.
+---
+
+# Конспект урока
+
+## Когда использовать
+- Нужно сжать длинный текст до ключевых мыслей.
+
+## Инструкции
+1. Определи главную тему одним предложением.
+2. Выпиши 3–5 ключевых мыслей списком.
+3. Добавь раздел «Термины» с короткими определениями.
+4. Закончи блоком «Вопросы для самопроверки».
+
+## Правила
+- Не добавляй факты, которых нет в исходном тексте.
+- Формулируй коротко: одна мысль — одна строка.
+</code></pre>
+        </div>
+
+        <div class="code">
+          <div class="code__bar">
+            <span class="code__lang">Скилл: проверка тестов</span>
+            <button class="code__copy" data-copy="#ex-tests"><svg class="icon"><use href="#i-copy"></use></svg><span class="code__copy-label">Копировать</span></button>
+          </div>
+          <pre><code id="ex-tests">---
+name: test-review
+description: Проверяет, что тесты покрывают основные случаи.
+---
+
+# Проверка тестов
+
+## Когда использовать
+- После написания новых тестов.
+
+## Инструкции
+1. Перечисли, какие случаи уже покрыты.
+2. Найди непокрытые граничные случаи.
+3. Предложи конкретные новые проверки.
+4. Отметь тесты, которые проверяют не то, что заявлено.
+
+## Правила
+- Всегда указывай, какой случай остался без теста.
+- Никогда не удаляй тесты без явной причины.
+</code></pre>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:24px">
+        <svg class="icon"><use href="#i-spark"></use></svg>
+        <p><strong>Совет.</strong> Начни с шаблона «SKILL.md» в <a href="editor.html">редакторе</a> —
+        он уже содержит правильную структуру. Просто заполни разделы под свою задачу.</p>
+      </div>
+    </section>
+
+    <div class="btn-group" style="margin-top:10px">
+      <a class="btn btn--primary" href="harness.html">Далее: Подключение <svg class="icon"><use href="#i-external"></use></svg></a>
+      <a class="btn" href="editor.html"><svg class="icon"><use href="#i-editor"></use></svg>Создать скилл</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <span>NeuroMD — Skills.md</span>
+      <span>Модуль 02 · скиллы</span>
+    </div>
+  </footer>
+
+  <script src="../js/icons.js" defer></script>
+  <script src="../js/parser.js" defer></script>
+  <script src="../js/storage.js" defer></script>
+  <script src="../js/neuro-bg.js" defer></script>
+  <script src="../js/ui.js" defer></script>
+</body>
+</html>

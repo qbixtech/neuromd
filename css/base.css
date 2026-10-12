@@ -1,0 +1,297 @@
+/* NeuroMD — base.css
+   Переменные, reset, типографика, эффекты нейрокиберпанка. */
+
+/* ---------- Переменные ---------- */
+:root {
+  /* Тёмная основа */
+  --bg-0: #05060a;
+  --bg-1: #0a0d16;
+  --bg-2: #101523;
+  --bg-3: #161d30;
+  --line: #23304d;
+  --line-soft: #1a2438;
+
+  --text: #d7e2f5;
+  --text-dim: #8a9ab8;
+  --text-mute: #5f6f8d;
+
+  /* Мультиакцент: по умолчанию бирюза (редактор) */
+  --accent: #22e0d0;
+  --accent-2: #12b6d6;
+  --accent-rgb: 34, 224, 208;
+
+  /* Акценты разделов */
+  --c-editor: #22e0d0;
+  --c-learn: #a06bff;
+  --c-skills: #ff4fa3;
+  --c-harness: #4dff9e;
+
+  --ok: #4dff9e;
+  --warn: #ffcf4d;
+  --err: #ff5470;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 18px;
+
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  --glow: 0 0 0 1px rgba(var(--accent-rgb), 0.35), 0 0 22px rgba(var(--accent-rgb), 0.22);
+
+  --font: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+  --mono: "Cascadia Code", "JetBrains Mono", "Consolas", "Courier New", monospace;
+
+  --nav-h: 64px;
+  --maxw: 1200px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-spring: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Акцент по разделу */
+[data-section="learn"] { --accent: var(--c-learn); --accent-rgb: 160, 107, 255; }
+[data-section="skills"] { --accent: var(--c-skills); --accent-rgb: 255, 79, 163; }
+[data-section="harness"] { --accent: var(--c-harness); --accent-rgb: 77, 255, 158; }
+
+/* Светлая тема (включается классом .theme-light на <html>) */
+.theme-light {
+  --bg-0: #eef2f8;
+  --bg-1: #ffffff;
+  --bg-2: #f4f7fc;
+  --bg-3: #e6ecf6;
+  --line: #c6d2e6;
+  --line-soft: #d8e1f0;
+  --text: #10182a;
+  --text-dim: #4a5a76;
+  --text-mute: #7c8aa4;
+  --shadow: 0 12px 30px rgba(30, 50, 90, 0.14);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-h);
+}
+
+body {
+  margin: 0;
+  position: relative;
+  isolation: isolate;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg-0);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 0.6em;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+p { margin: 0 0 1em; }
+a { color: var(--accent); text-decoration: none; transition: color 0.2s var(--ease); }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; display: block; }
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+button { touch-action: manipulation; }
+ul, ol { margin: 0 0 1em; padding-left: 1.4em; }
+
+::selection { background: rgba(var(--accent-rgb), 0.35); color: #fff; }
+
+/* Скроллбар */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-1); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--accent), var(--accent-2));
+  border-radius: 10px;
+  border: 2px solid var(--bg-1);
+}
+
+/* ---------- Фон: сетка + canvas ---------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(var(--accent-rgb), 0.10), transparent 55%),
+    radial-gradient(ellipse at 90% 100%, rgba(var(--accent-rgb), 0.07), transparent 50%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1));
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(120, 160, 220, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 160, 220, 0.045) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 78%);
+}
+
+#neuro-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ---------- Типографика утилиты ---------- */
+.mono { font-family: var(--mono); }
+.dim { color: var(--text-dim); }
+.mute { color: var(--text-mute); }
+.accent { color: var(--accent); }
+
+.kicker {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+/* ---------- Эффекты ---------- */
+.glow-text {
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(var(--accent-rgb), 0.7), 0 0 26px rgba(var(--accent-rgb), 0.35);
+}
+
+/* Glitch-заголовок: псевдокопии со сдвигом */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  animation-duration: 6s;
+  animation-timing-function: steps(2, end);
+  animation-iteration-count: infinite;
+}
+.glitch::before {
+  color: #22e0d0;
+  transform: translate(-2px, -1px);
+  mix-blend-mode: screen;
+  animation-name: glitch-idle-x;
+}
+.glitch::after {
+  color: #ff4fa3;
+  transform: translate(2px, 1px);
+  mix-blend-mode: screen;
+  animation-name: glitch-idle-y;
+}
+.glitch:hover::before { animation: glitch-x 0.45s steps(2) infinite; }
+.glitch:hover::after { animation: glitch-y 0.45s steps(2) infinite; }
+
+@keyframes glitch-idle-x {
+  0%, 91%, 100% { transform: translate(-2px, -1px); clip-path: inset(0 0 0 0); }
+  92% { transform: translate(-4px, 1px); clip-path: inset(18% 0 62% 0); }
+  94% { transform: translate(1px, -2px); clip-path: inset(64% 0 12% 0); }
+}
+
+@keyframes glitch-idle-y {
+  0%, 91%, 100% { transform: translate(2px, 1px); clip-path: inset(0 0 0 0); }
+  93% { transform: translate(4px, -1px); clip-path: inset(42% 0 34% 0); }
+  95% { transform: translate(-1px, 2px); clip-path: inset(8% 0 72% 0); }
+}
+
+@keyframes glitch-x {
+  0% { transform: translate(-2px, -1px); }
+  50% { transform: translate(-4px, 1px); }
+  100% { transform: translate(-1px, -2px); }
+}
+@keyframes glitch-y {
+  0% { transform: translate(2px, 1px); }
+  50% { transform: translate(4px, -1px); }
+  100% { transform: translate(1px, 2px); }
+}
+
+/* Scanlines-оверлей (для hero) */
+.scanlines { position: relative; }
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+/* Reveal-анимация появления. Контент остаётся видимым, если JS отключён. */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+}
+html.js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Пульсация для акцентов */
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.pulse { animation: pulse 2.4s ease-in-out infinite; }
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ---------- Доступность ---------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal,
+  html.js .reveal,
+  html.js .reveal.is-visible { opacity: 1; transform: none; }
+  #neuro-bg { display: none; }
+}

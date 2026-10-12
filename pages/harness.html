@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'none'">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>NeuroMD — подключение скиллов: локально и в harness</title>
+  <meta name="description" content="Как подключить скиллы локально и в общий harness на примере Koda Desktop и Opencode.">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-section="harness">
+  <canvas id="neuro-bg"></canvas>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__mark"><svg class="icon"><use href="#i-spark"></use></svg></span>
+        Neuro<span class="brand__dot">MD</span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a class="nav__link" href="../index.html">Главная</a></li>
+        <li><a class="nav__link" href="editor.html"><svg class="icon"><use href="#i-editor"></use></svg>Редактор</a></li>
+        <li><a class="nav__link" href="learn.html"><svg class="icon"><use href="#i-learn"></use></svg>Обучение</a></li>
+        <li><a class="nav__link" href="skills.html"><svg class="icon"><use href="#i-skills"></use></svg>Skills.md</a></li>
+        <li><a class="nav__link" href="harness.html"><svg class="icon"><use href="#i-harness"></use></svg>Подключение</a></li>
+      </ul>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Меню" aria-expanded="false"><svg class="icon"><use href="#i-menu"></use></svg></button>
+    </div>
+  </nav>
+
+  <main class="container section">
+    <div class="section-head">
+      <p class="kicker">Модуль 03 · подключение</p>
+      <h1>Как подключить скилл</h1>
+      <p class="dim">Написанный <code>SKILL.md</code> нужно поместить туда, где его увидит ассистент.
+      Есть два пути: локально, в папке проекта, или через общий harness — хранилище скиллов,
+      доступное сразу в нескольких средах.</p>
+    </div>
+
+    <!-- Что такое harness -->
+    <section class="section--tight section--screen" id="what">
+      <h2><span class="accent mono">01 /</span> Что такое harness</h2>
+      <p><strong>Harness</strong> (обвязка, среда запуска) — это программа-агент, которая даёт модели
+      инструменты: читать файлы, запускать команды, редактировать код. Именно harness решает, какие
+      скиллы доступны и в каком порядке их подключать.</p>
+      <div class="grid grid--3" style="margin-top:22px">
+        <div class="card"><span class="card__ico"><svg class="icon"><use href="#i-folder"></use></svg></span><h3>Локальные скиллы</h3><p>Лежат в папке проекта или в домашней папке настроек. Видны только на твоём компьютере.</p></div>
+        <div class="card"><span class="card__ico"><svg class="icon"><use href="#i-cloud"></use></svg></span><h3>Общий harness</h3><p>Скиллы лежат в общем хранилище и подключаются по имени. Одинаковы для всей команды.</p></div>
+        <div class="card"><span class="card__ico"><svg class="icon"><use href="#i-robot"></use></svg></span><h3>Когда что</h3><p>Локально — для своих экспериментов. Общий harness — чтобы делиться рабочими правилами.</p></div>
+      </div>
+    </section>
+
+    <!-- Локально -->
+    <section class="section--tight" id="local">
+      <h2><span class="accent mono">02 /</span> Подключение локально</h2>
+      <p>Самый простой способ: положить скилл в папку, которую ассистент просматривает при запуске.
+      Обычно это папка настроек агента в домашнем каталоге.</p>
+
+      <ol class="steps" style="margin-top:20px">
+        <li>
+          <h4>Найди папку скиллов</h4>
+          <p>У большинства агентов это <code>.&lt;имя-агента&gt;/skills/</code> в домашней папке
+          пользователя. Например, для Koda CLI — <code>~/.kodacli/skills/</code>.</p>
+        </li>
+        <li>
+          <h4>Создай подпапку для своего скилла</h4>
+          <p>Один скилл — одна папка. Внутри — файл <code>SKILL.md</code>. Имя папки делай коротким
+          и понятным: <code>lesson-notes</code>, <code>code-review</code>.</p>
+        </li>
+        <li>
+          <h4>Скопируй файл</h4>
+          <p>Помести <code>SKILL.md</code> в созданную папку. Проверь, что заголовочный блок с
+          <code>name</code> и <code>description</code> на месте.</p>
+        </li>
+        <li>
+          <h4>Перезапусти агента</h4>
+          <p>Скиллы читаются при старте. После добавления нового файла перезапусти harness, чтобы он
+          его увидел.</p>
+        </li>
+      </ol>
+
+      <div class="grid grid--2" style="margin-top:22px; align-items:start">
+        <div class="code">
+          <div class="code__bar"><span class="code__lang">Структура папок</span></div>
+          <pre><code>.kodacli/
+└── skills/
+    ├── lesson-notes/
+    │   └── SKILL.md
+    └── code-review/
+        └── SKILL.md</code></pre>
+        </div>
+        <div class="callout">
+          <svg class="icon"><use href="#i-check"></use></svg>
+          <p><strong>Проверка.</strong> Спроси у агента, какие скиллы ему доступны. Если твой скилл
+          в списке — всё получилось. Если нет — проверь путь, имя файла (строго <code>SKILL.md</code>)
+          и перезапусти harness.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Koda Desktop -->
+    <section class="section--tight" id="koda">
+      <h2><span class="accent mono">03 /</span> Пример: Koda Desktop</h2>
+      <p>Koda — агент, который работает с твоими файлами и запускает команды. Скиллы дают ему
+      готовые сценарии поведения.</p>
+
+      <div class="grid grid--2" style="margin-top:20px; align-items:start">
+        <div>
+          <ol class="steps">
+            <li>
+              <h4>Открой папку скиллов</h4>
+              <p>Перейди в каталог настроек Koda. Скиллы хранятся в подпапке <code>skills</code>.</p>
+            </li>
+            <li>
+              <h4>Добавь свой SKILL.md</h4>
+              <p>Создай папку скилла и положи внутрь файл. Можно скопировать пример из
+              <a href="skills.html">раздела Skills.md</a>.</p>
+            </li>
+            <li>
+              <h4>Перезапусти Koda</h4>
+              <p>При старте агент просканирует папку и загрузит описания скиллов.</p>
+            </li>
+            <li>
+              <h4>Дай задачу под скилл</h4>
+              <p>Опиши задачу так, чтобы она совпала с полем <code>description</code> — агент
+              применит подходящий скилл автоматически.</p>
+            </li>
+          </ol>
+        </div>
+        <div class="code">
+          <div class="code__bar">
+            <span class="code__lang">Путь к скиллам (Windows)</span>
+            <button class="code__copy" data-copy="#koda-path"><svg class="icon"><use href="#i-copy"></use></svg><span class="code__copy-label">Копировать</span></button>
+          </div>
+          <pre><code id="koda-path">C:\Users\&lt;Имя&gt;\.kodacli\skills\my-skill\SKILL.md</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Opencode -->
+    <section class="section--tight" id="opencode">
+      <h2><span class="accent mono">04 /</span> Пример: Opencode</h2>
+      <p>Opencode — открытая среда для работы с ИИ-агентами в терминале. Здесь скиллы описываются
+      отдельными файлами, а подключаются либо локально в проекте, либо через общий набор правил.</p>
+
+      <div class="grid grid--2" style="margin-top:20px; align-items:start">
+        <div>
+          <ol class="steps">
+            <li>
+              <h4>Локально в проекте</h4>
+              <p>Создай папку для правил внутри проекта и положи туда <code>SKILL.md</code>. Так
+              скилл путешествует вместе с кодом и попадает в репозиторий.</p>
+            </li>
+            <li>
+              <h4>Через общий набор</h4>
+              <p>Скиллы можно держать в общем каталоге конфигурации агента, чтобы они работали во
+              всех проектах сразу.</p>
+            </li>
+            <li>
+              <h4>Опиши подключение</h4>
+              <p>В конфигурации агента укажи, откуда брать скиллы. Обычно достаточно пути к папке
+              или имени набора.</p>
+            </li>
+            <li>
+              <h4>Запусти и проверь</h4>
+              <p>Запусти агента в терминале и попроси показать список доступных скиллов.</p>
+            </li>
+          </ol>
+        </div>
+        <div class="code">
+          <div class="code__bar">
+            <span class="code__lang">Пример структуры</span>
+            <button class="code__copy" data-copy="#oc-tree"><svg class="icon"><use href="#i-copy"></use></svg><span class="code__copy-label">Копировать</span></button>
+          </div>
+          <pre><code id="oc-tree">project/
+├── .opencode/
+│   └── skills/
+│       └── my-skill/
+│           └── SKILL.md
+└── src/</code></pre>
+        </div>
+      </div>
+
+      <div class="callout callout--warn" style="margin-top:20px">
+        <svg class="icon"><use href="#i-warn"></use></svg>
+        <p><strong>Важно.</strong> Точные пути и названия настроек зависят от версии среды. Всегда
+        сверяйся с документацией своего агента: общий принцип один — папка со скиллами и файл
+        <code>SKILL.md</code> внутри, но конкретный путь может отличаться.</p>
+      </div>
+    </section>
+
+    <!-- Сравнение -->
+    <section class="section--tight section--screen" id="compare">
+      <h2><span class="accent mono">05 /</span> Сравнение способов</h2>
+      <div class="table-wrap" style="margin-top:16px">
+        <table class="data">
+          <thead>
+            <tr><th>Критерий</th><th>Локально</th><th>Общий harness</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Где лежит</td><td>Папка настроек или проект</td><td>Общее хранилище скиллов</td></tr>
+            <tr><td>Кто видит</td><td>Только ты</td><td>Вся команда</td></tr>
+            <tr><td>Обновление</td><td>Меняешь файл вручную</td><td>Обновляется централизованно</td></tr>
+            <tr><td>Подходит для</td><td>Личных экспериментов</td><td>Общих правил и стандартов</td></tr>
+            <tr><td>Риск</td><td>Забыть скопировать на другом ПК</td><td>Слишком общие правила для всех</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Чек-лист -->
+    <section class="section--tight" id="checklist">
+      <h2><span class="accent mono">06 /</span> Чек-лист</h2>
+      <div class="accordion">
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false"><svg class="icon"><use href="#i-check"></use></svg>Файл назван правильно<svg class="icon accordion__chev"><use href="#i-external"></use></svg></button>
+          <div class="accordion__body"><div class="accordion__inner"><p>Имя строго <code>SKILL.md</code>, внутри папки скилла.</p></div></div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false"><svg class="icon"><use href="#i-check"></use></svg>Есть заголовочный блок<svg class="icon accordion__chev"><use href="#i-external"></use></svg></button>
+          <div class="accordion__body"><div class="accordion__inner"><p>Поля <code>name</code> и <code>description</code> заполнены и понятны.</p></div></div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false"><svg class="icon"><use href="#i-check"></use></svg>Инструкции конкретны<svg class="icon accordion__chev"><use href="#i-external"></use></svg></button>
+          <div class="accordion__body"><div class="accordion__inner"><p>Шаги написаны глаголами, нет расплывчатых формулировок.</p></div></div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false"><svg class="icon"><use href="#i-check"></use></svg>Скилл виден агенту<svg class="icon accordion__chev"><use href="#i-external"></use></svg></button>
+          <div class="accordion__body"><div class="accordion__inner"><p>После перезапуска агент показывает скилл в списке доступных.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="btn-group" style="margin-top:10px">
+      <a class="btn btn--primary" href="editor.html"><svg class="icon"><use href="#i-editor"></use></svg>Создать свой скилл</a>
+      <a class="btn" href="skills.html"><svg class="icon"><use href="#i-skills"></use></svg>Вернуться к Skills.md</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <span>NeuroMD — подключение</span>
+      <span>Модуль 03 · локально и harness</span>
+    </div>
+  </footer>
+
+  <script src="../js/icons.js" defer></script>
+  <script src="../js/parser.js" defer></script>
+  <script src="../js/storage.js" defer></script>
+  <script src="../js/neuro-bg.js" defer></script>
+  <script src="../js/ui.js" defer></script>
+</body>
+</html>

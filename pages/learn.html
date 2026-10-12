@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'none'">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <title>NeuroMD — обучение: Markdown и ИИ</title>
+  <meta name="description" content="Что такое Markdown, базовый синтаксис с примерами и почему этот формат важен для работы с ИИ.">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-section="learn">
+  <canvas id="neuro-bg"></canvas>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__mark"><svg class="icon"><use href="#i-spark"></use></svg></span>
+        Neuro<span class="brand__dot">MD</span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a class="nav__link" href="../index.html">Главная</a></li>
+        <li><a class="nav__link" href="editor.html"><svg class="icon"><use href="#i-editor"></use></svg>Редактор</a></li>
+        <li><a class="nav__link" href="learn.html"><svg class="icon"><use href="#i-learn"></use></svg>Обучение</a></li>
+        <li><a class="nav__link" href="skills.html"><svg class="icon"><use href="#i-skills"></use></svg>Skills.md</a></li>
+        <li><a class="nav__link" href="harness.html"><svg class="icon"><use href="#i-harness"></use></svg>Подключение</a></li>
+      </ul>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Меню" aria-expanded="false"><svg class="icon"><use href="#i-menu"></use></svg></button>
+    </div>
+  </nav>
+
+  <main class="container section">
+    <div class="section-head">
+      <p class="kicker">Модуль 01 · основы</p>
+      <h1>Markdown и ИИ</h1>
+      <p class="dim">Пройди по шагам: что такое Markdown, как им пользоваться и почему он стал
+      основным форматом инструкций для искусственного интеллекта.</p>
+    </div>
+
+    <!-- 1. Что такое Markdown -->
+    <section class="section--tight section--screen" id="what">
+      <h2><span class="accent mono">01 /</span> Что такое Markdown</h2>
+      <p>Markdown — это способ разметки текста обычными символами. Ты не нажимаешь кнопки
+      оформления, а ставишь знаки прямо в тексте: <code>#</code> для заголовка, <code>-</code> для
+      пункта списка, <code>**</code> для жирного. На выходе получается обычный текстовый файл с
+      расширением <code>.md</code>.</p>
+      <p>Главное свойство: такой файл <strong>читается человеком как есть</strong> и одновременно
+      <strong>однозначно разбирается программой</strong>. Одна запись — два потребителя.</p>
+
+      <div class="grid grid--3" style="margin-top:24px">
+        <div class="card"><h3>Просто</h3><p>Не нужны сложные редакторы. Открывается в блокноте, на телефоне, в браузере.</p></div>
+        <div class="card"><h3>Универсально</h3><p>Одинаково работает в GitHub, документации, заметках, чатах и ИИ-ассистентах.</p></div>
+        <div class="card"><h3>Долговечно</h3><p>Чистый текст переживёт смену программ. Его легко хранить и сравнивать.</p></div>
+      </div>
+    </section>
+
+    <!-- 2. Синтаксис -->
+    <section class="section--tight" id="syntax">
+      <h2><span class="accent mono">02 /</span> Базовый синтаксис</h2>
+      <p class="dim">Слева — что ты пишешь, справа — что получается. Все примеры можно повторить в
+      <a href="editor.html">редакторе</a>.</p>
+
+      <div class="grid grid--2" style="margin-top:20px">
+        <div class="code">
+          <div class="code__bar"><span class="code__lang">Заголовки</span></div>
+          <pre><code># Заголовок 1
+## Заголовок 2
+### Заголовок 3</code></pre>
+        </div>
+        <div class="demo" data-demo>
+          <div>
+            <div class="demo__label">Результат</div>
+            <pre style="display:none"><code># Заголовок 1
+## Заголовок 2
+### Заголовок 3</code></pre>
+            <div class="demo__out"></div>
+          </div>
+        </div>
+
+        <div class="code">
+          <div class="code__bar"><span class="code__lang">Акценты</span></div>
+          <pre><code>**жирный**
+*курсив*
+~~зачёркнутый~~
+`инлайн-код`</code></pre>
+        </div>
+        <div class="demo" data-demo>
+          <div>
+            <div class="demo__label">Результат</div>
+            <pre style="display:none"><code>**жирный**
+*курсив*
+~~зачёркнутый~~
+`инлайн-код`</code></pre>
+            <div class="demo__out"></div>
+          </div>
+        </div>
+
+        <div class="code">
+          <div class="code__bar"><span class="code__lang">Списки</span></div>
+          <pre><code>- пункт
+- пункт
+
+1. первый
+2. второй</code></pre>
+        </div>
+        <div class="demo" data-demo>
+          <div>
+            <div class="demo__label">Результат</div>
+            <pre style="display:none"><code>- пункт
+- пункт
+
+1. первый
+2. второй</code></pre>
+            <div class="demo__out"></div>
+          </div>
+        </div>
+
+        <div class="code">
+          <div class="code__bar"><span class="code__lang">Задачи</span></div>
+          <pre><code>- [x] сделано
+- [ ] в работе</code></pre>
+        </div>
+        <div class="demo" data-demo>
+          <div>
+            <div class="demo__label">Результат</div>
+            <pre style="display:none"><code>- [x] сделано
+- [ ] в работе</code></pre>
+            <div class="demo__out"></div>
+          </div>
+        </div>
+
+        <div class="code">
+          <div class="code__bar"><span class="code__lang">Цитата и ссылка</span></div>
+          <pre><code>&gt; важная мысль
+
+[текст ссылки](https://example.com)</code></pre>
+        </div>
+        <div class="demo" data-demo>
+          <div>
+            <div class="demo__label">Результат</div>
+            <pre style="display:none"><code>&gt; важная мысль
+
+[текст ссылки](https://example.com)</code></pre>
+            <div class="demo__out"></div>
+          </div>
+        </div>
+
+        <div class="code">
+          <div class="code__bar"><span class="code__lang">Код</span></div>
+          <pre><code>```python
+print("Привет")
+```</code></pre>
+        </div>
+        <div class="demo" data-demo>
+          <div>
+            <div class="demo__label">Результат</div>
+            <pre style="display:none"><code>```python
+print("Привет")
+```</code></pre>
+            <div class="demo__out"></div>
+          </div>
+        </div>
+
+        <div class="code">
+          <div class="code__bar"><span class="code__lang">Таблица</span></div>
+          <pre><code>| Поле | Значение |
+| --- | --- |
+| Формат | .md |
+| Язык | любой |</code></pre>
+        </div>
+        <div class="demo" data-demo>
+          <div>
+            <div class="demo__label">Результат</div>
+            <pre style="display:none"><code>| Поле | Значение |
+| --- | --- |
+| Формат | .md |
+| Язык | любой |</code></pre>
+            <div class="demo__out"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Почему ИИ -->
+    <section class="section--tight section--screen" id="ai">
+      <h2><span class="accent mono">03 /</span> Почему ИИ предпочитает Markdown</h2>
+      <div class="grid grid--2">
+        <div class="card">
+          <span class="card__ico"><svg class="icon"><use href="#i-robot"></use></svg></span>
+          <h3>Структура вместо догадок</h3>
+          <p>Заголовки и списки показывают модели границы смысла. Меньше шансов, что она перепутает
+          разделы или пропустит шаг.</p>
+        </div>
+        <div class="card">
+          <span class="card__ico"><svg class="icon"><use href="#i-terminal"></use></svg></span>
+          <h3>Экономия контекста</h3>
+          <p>Markdown компактнее «оформленного» текста. В том же объёме помещается больше полезной
+          информации — а это влияет на качество ответа.</p>
+        </div>
+        <div class="card">
+          <span class="card__ico"><svg class="icon"><use href="#i-code"></use></svg></span>
+          <h3>Блоки кода отделены</h3>
+          <p>Модель чётко видит, где код, а где пояснение. Это снижает путаницу между инструкцией и примером.</p>
+        </div>
+        <div class="card">
+          <span class="card__ico"><svg class="icon"><use href="#i-skills"></use></svg></span>
+          <h3>Основа для инструкций</h3>
+          <p>Файлы правил для ИИ-ассистентов пишутся именно в Markdown. Ты как бы программируешь
+          поведение агента текстом.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:24px">
+        <svg class="icon"><use href="#i-spark"></use></svg>
+        <p><strong>Вывод.</strong> Умение писать понятный Markdown — это навык общения с ИИ.
+        Чем яснее структура твоего текста, тем точнее результат.</p>
+      </div>
+    </section>
+
+    <!-- Практика -->
+    <section class="section--tight">
+      <h2><span class="accent mono">04 /</span> Практика</h2>
+      <div class="accordion">
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false">
+            <svg class="icon"><use href="#i-check"></use></svg>
+            Задание 1: оформи свой документ
+            <svg class="icon accordion__chev"><use href="#i-external"></use></svg>
+          </button>
+          <div class="accordion__body"><div class="accordion__inner">
+            <p>Открой <a href="editor.html">редактор</a> и создай документ с заголовком, списком из
+            трёх пунктов, чек-листом и таблицей. Скачай его как <code>.md</code>.</p>
+          </div></div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false">
+            <svg class="icon"><use href="#i-check"></use></svg>
+            Задание 2: объясни формат другу
+            <svg class="icon accordion__chev"><use href="#i-external"></use></svg>
+          </button>
+          <div class="accordion__body"><div class="accordion__inner">
+            <p>Напиши короткую инструкцию в Markdown: как заварить чай. Используй нумерованный
+            список и одну цитату-совет.</p>
+          </div></div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false">
+            <svg class="icon"><use href="#i-check"></use></svg>
+            Задание 3: сравни с обычным текстом
+            <svg class="icon accordion__chev"><use href="#i-external"></use></svg>
+          </button>
+          <div class="accordion__body"><div class="accordion__inner">
+            <p>Возьми абзац обычного текста и перепиши его структурно: заголовок, список ключевых
+            мыслей, вывод. Сравни, какой вариант легче читать.</p>
+          </div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="btn-group" style="margin-top:10px">
+      <a class="btn btn--primary" href="skills.html">Далее: Skills.md <svg class="icon"><use href="#i-external"></use></svg></a>
+      <a class="btn" href="editor.html"><svg class="icon"><use href="#i-editor"></use></svg>Попробовать в редакторе</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <span>NeuroMD — обучение</span>
+      <span>Модуль 01 · Markdown и ИИ</span>
+    </div>
+  </footer>
+
+  <script src="../js/icons.js" defer></script>
+  <script src="../js/parser.js" defer></script>
+  <script src="../js/storage.js" defer></script>
+  <script src="../js/neuro-bg.js" defer></script>
+  <script src="../js/ui.js" defer></script>
+</body>
+</html>

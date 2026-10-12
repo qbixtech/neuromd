@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'; connect-src 'none'">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <title>NeuroMD — редактор Markdown и обучение</title>
+  <meta name="description" content="Редактор Markdown с генерацией .md файлов и обучающий раздел о том, зачем нужен этот формат в эпоху ИИ.">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body data-section="editor">
+  <canvas id="neuro-bg"></canvas>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__mark"><svg class="icon"><use href="#i-spark"></use></svg></span>
+        Neuro<span class="brand__dot">MD</span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a class="nav__link" href="index.html">Главная</a></li>
+        <li><a class="nav__link" href="pages/editor.html"><svg class="icon"><use href="#i-editor"></use></svg>Редактор</a></li>
+        <li><a class="nav__link" href="pages/learn.html"><svg class="icon"><use href="#i-learn"></use></svg>Обучение</a></li>
+        <li><a class="nav__link" href="pages/skills.html"><svg class="icon"><use href="#i-skills"></use></svg>Skills.md</a></li>
+        <li><a class="nav__link" href="pages/harness.html"><svg class="icon"><use href="#i-harness"></use></svg>Подключение</a></li>
+      </ul>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Меню" aria-expanded="false"><svg class="icon"><use href="#i-menu"></use></svg></button>
+    </div>
+  </nav>
+
+  <header class="hero scanlines">
+    <div class="container hero__grid">
+      <div>
+        <p class="kicker">Нейроинтерфейс · формат текста для ИИ</p>
+        <h1><span class="glitch glow-text" data-text="NeuroMD">NeuroMD</span></h1>
+        <p class="hero__lead">
+          Редактор Markdown с живым предпросмотром и экспортом <code>.md</code> — плюс
+          обучающий раздел о том, зачем этот формат нужен в эпоху искусственного интеллекта,
+          как писать <code>SKILL.md</code> и как подключать скиллы локально и в общий harness.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="pages/editor.html"><svg class="icon"><use href="#i-editor"></use></svg>Открыть редактор</a>
+          <a class="btn" href="pages/learn.html"><svg class="icon"><use href="#i-learn"></use></svg>Начать обучение</a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__code">
+<span class="c"># Скилл для агента</span>
+<span class="k">---</span>
+<span class="k">name</span>: code-review
+<span class="k">description</span>: <span class="s">Проверяет код перед слиянием</span>
+<span class="k">---</span>
+
+<span class="c">## Инструкции</span>
+<span class="k">1.</span> Прочитай изменения
+<span class="k">2.</span> Найди ошибки и риски
+<span class="k">3.</span> Опиши правки списком
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="container section section--screen">
+      <div class="section-head reveal">
+        <p class="kicker">Что это</p>
+        <h2>Текстовый формат, который понимают и люди, и модели</h2>
+        <p>Markdown — простой способ разметки обычным текстом. Один файл <code>.md</code> читается
+        человеком без специальных программ и одновременно легко разбирается нейросетью.</p>
+      </div>
+      <div class="grid grid--3">
+        <a class="card reveal" href="pages/editor.html">
+          <span class="card__ico"><svg class="icon"><use href="#i-editor"></use></svg></span>
+          <h3>Редактор</h3>
+          <p>Набирай текст, смотри результат сразу, скачивай готовый <code>.md</code> или <code>.html</code>.</p>
+          <span class="card__link">Перейти <svg class="icon"><use href="#i-external"></use></svg></span>
+        </a>
+        <a class="card reveal" href="pages/learn.html">
+          <span class="card__ico"><svg class="icon"><use href="#i-learn"></use></svg></span>
+          <h3>Обучение</h3>
+          <p>Что такое Markdown, базовый синтаксис с примерами и почему ИИ предпочитает именно его.</p>
+          <span class="card__link">Изучить <svg class="icon"><use href="#i-external"></use></svg></span>
+        </a>
+        <a class="card reveal" href="pages/skills.html">
+          <span class="card__ico"><svg class="icon"><use href="#i-skills"></use></svg></span>
+          <h3>Skills.md</h3>
+          <p>Что такое <code>SKILL.md</code>, из чего он состоит и как написать собственный скилл.</p>
+          <span class="card__link">Разобрать <svg class="icon"><use href="#i-external"></use></svg></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="container section section--screen">
+      <div class="section-head reveal">
+        <p class="kicker">Почему это важно сейчас</p>
+        <h2>Markdown в эпоху ИИ</h2>
+      </div>
+      <div class="grid grid--2">
+        <div class="card reveal">
+          <span class="card__ico"><svg class="icon"><use href="#i-robot"></use></svg></span>
+          <h3>Понятный язык для моделей</h3>
+          <p>Разметка заголовками, списками и блоками кода даёт модели структуру: где начало раздела,
+          где шаги, где пример. Это снижает число ошибок и лишних уточнений.</p>
+        </div>
+        <div class="card reveal">
+          <span class="card__ico"><svg class="icon"><use href="#i-terminal"></use></svg></span>
+          <h3>Текст без лишнего</h3>
+          <p>Это чистый текст без тяжёлого оформления. Его удобно хранить в репозиториях, копировать
+          в чат с ИИ и передавать между программами без потери смысла.</p>
+        </div>
+        <div class="card reveal">
+          <span class="card__ico"><svg class="icon"><use href="#i-skills"></use></svg></span>
+          <h3>Инструкции для агентов</h3>
+          <p>Современные ИИ-ассистенты читают файлы вида <code>SKILL.md</code> как инструкции.
+          Ты пишешь правила один раз — агент применяет их при каждой задаче.</p>
+        </div>
+        <div class="card reveal">
+          <span class="card__ico"><svg class="icon"><use href="#i-harness"></use></svg></span>
+          <h3>Общий доступ</h3>
+          <p>Скиллы можно держать локально в папке проекта или подключать из общего хранилища,
+          чтобы одна и та же инструкция работала в разных средах.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section--tight">
+      <div class="callout reveal">
+        <svg class="icon"><use href="#i-spark"></use></svg>
+        <p><strong>С чего начать.</strong> Открой <a href="pages/editor.html">редактор</a>, нажми «Шаблоны» и выбери
+        «SKILL.md» — увидишь готовую структуру. Затем загляни в <a href="pages/skills.html">раздел Skills.md</a>,
+        чтобы понять, как её заполнять, и в <a href="pages/harness.html">раздел Подключение</a>, чтобы
+        использовать скилл в своей среде.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <div class="brand" style="margin-bottom:10px">
+          <span class="brand__mark"><svg class="icon"><use href="#i-spark"></use></svg></span>
+          Neuro<span class="brand__dot">MD</span>
+        </div>
+        <p>Учебный проект: редактор Markdown и материалы о работе с форматом в эпоху ИИ. Работает офлайн.</p>
+      </div>
+      <div class="footer__col">
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="pages/editor.html">Редактор</a></li>
+          <li><a href="pages/learn.html">Обучение</a></li>
+          <li><a href="pages/skills.html">Skills.md</a></li>
+          <li><a href="pages/harness.html">Подключение</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <span>NeuroMD</span>
+      <span>Markdown · ИИ · Skills</span>
+    </div>
+  </footer>
+
+  <script src="js/icons.js" defer></script>
+  <script src="js/parser.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/neuro-bg.js" defer></script>
+  <script src="js/ui.js" defer></script>
+</body>
+</html>
